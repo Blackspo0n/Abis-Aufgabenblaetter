@@ -1,0 +1,79 @@
+\section{Aufgabe 2 (Erstellung eines DTD-Dokuments)}
+
+
+\subsection{Teilaufgabe a)}
+\textbf{Erstellen Sie eine DTD für die XML-Datei aus Aufgabe 1.}
+
+\begin{lstlisting}[language=xml, caption={XML-Datei},
+label={lst:xml}]
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT KFZ (Auto*,Motorrad*)>
+<!ELEMENT Auto (Kennzeichen,Halter,Typ)>
+<!ELEMENT Motorrad (Kennzeichen,Halter)>
+<!ELEMENT Kennzeichen (#PCDATA)>
+<!ELEMENT Halter (Vorname+,Nachname)>
+<!ELEMENT Vorname (#PCDATA)>
+<!ELEMENT Nachname (#PCDATA)>
+<!ELEMENT Typ (#PCDATA)>
+\end{lstlisting}
+
+\subsection{Teilaufgabeb b)}
+\textbf{Bauen Sie Ihre XML-Datei so um, dass die DTD aus Teilaufgabe a benutzt
+wird.}
+\begin{lstlisting}[language=xml, caption={XML-Datei},
+label={lst:xml}]
+<?xml version="1.0"?>
+<!DOCTYPE KFZ SYSTEM "KFZLIST.dtd">
+<KFZ>
+	[...] 	
+</KFZ>
+\end{lstlisting}
+
+\subsection{Teilaufgabe c)}
+\textbf{Was müssen Sie tun, damit Ihre DTD auch von anderen benutzt werden
+kann?}
+
+Das Schema muss auf einen Webserver verfügbargemacht werden. Weiter muss man
+anschließend eine leicht abgewandelte Schreibweiße für das Einbetten des Schemas
+verwenden:
+\begin{lstlisting}[language=xml, caption={XML-Datei},
+label={lst:xml}]
+<?xml version="1.0"?>
+<!DOCTYPE KFZ PUBLIC 'KFZ' 'https://example.com/xmlDTD/kfzlist.dtd'>
+<KFZ>
+	[...]
+</KFZ>
+\end{lstlisting}
+
+\subsection{Teilaufgabe d)}
+\textbf{Wandeln Sie Ihre Lösung aus a und b so um, dass Vorname und Nachname als Attribut
+eines anderen Elements auftreten.}
+
+\textbf{Schema:}
+\begin{lstlisting}[language=xml, caption={XML-Datei},
+label={lst:xml}]
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT KFZ (Auto*,Motorrad*)>
+<!ELEMENT Auto (Kennzeichen,Halter,Typ)>
+<!ELEMENT Motorrad (Kennzeichen,Halter)>
+<!ELEMENT Kennzeichen (#PCDATA)>
+<!ELEMENT Halter EMPTY>
+<!ATTLIST Halter Vorname CDATA #REQUIRED Nachname CDATA #REQUIRED>
+<!ELEMENT Typ (#PCDATA)>
+\end{lstlisting}
+
+\textbf{XML-Struktur:}
+\begin{lstlisting}[language=xml, caption={XML-Datei},
+label={lst:xml}]
+<?xml version="1.0"?>
+<!DOCTYPE KFZ PUBLIC 'KFZ' 'https://example.com/xmlDTD/kfzlist.dtd' >
+<KFZ>
+	<Auto>
+		<Kennzeichen>DN-WM10</Kennzeichen>
+		<Halter Vorname="Mermett" Nachname="Mueller"/>
+		<Typ>Limousine</Typ>
+	</Auto>
+</KFZ>
+\end{lstlisting}
+
+\clearpage 
