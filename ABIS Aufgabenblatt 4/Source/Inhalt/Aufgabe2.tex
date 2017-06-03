@@ -1,0 +1,28 @@
+\section{Aufgabe 2 (Biztalk)}
+
+\subsection{Teiaufgabe A)}
+\textbf{Zu welchem Zweck kann ein Unternehmen den Biztalk-Server einsetzen (kurze
+Beschreibung)?}
+
+\subsection{Teiaufgabe B)}
+\textbf{Welche Rolle spielt die \gqq{Messaging}-Komponente beim Biztalk-Server?
+Machen Sie die Rolle am Beispiel eines eingehenden Auftrags mit Bonitätsprüfung des Kunden
+deutlich.}
+
+Die Messaging-Komponente nimmt Nachrichten von der Umwelt des Biztalk-Servers
+entgegen bzw. gibt Nachrichten an diese weiter. Bei einem eingehenden Auftrag wird
+von der Messaging-Komponente die wesentlichen Bestandteile aus dem Auftrag
+geholt. Über einen Workflow wird die Erstellung von zwei Ausgangsnachrichten
+angestoßen: Eine Nachricht zur Bonitätsprüfung des Kunden und eine Nachricht zur
+Verfügbarkeitsprüfung der gewünschten Artikel. Beide Nachrichten werden wieder
+über die Messaging-Komponente an die entsprechenden Anwendungen geschickt.
+
+\subsection{Teiaufgabe C)}
+\textbf{Welche Aufgabe hat die \gqq{Orchestration}-Komponente beim
+Biztalk-Server?}
+
+Die Orchestration-Komponente regelt das Zusammenspiel der Biztalk-Komponenten.
+Zur Unterstützung eines Geschäftsprozesses werden hier die entsprechenden
+Dienstleistungen aus den anderen Komponenten in einem Workflow angeordnet.
+
+\clearpage 
