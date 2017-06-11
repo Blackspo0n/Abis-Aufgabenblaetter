@@ -1,28 +1,49 @@
 \section{Aufgabe 2 (Biztalk)}
 
-\subsection{Teiaufgabe A)}
+\subsection{Teilaufgabe A)}
 \textbf{Zu welchem Zweck kann ein Unternehmen den Biztalk-Server einsetzen (kurze
 Beschreibung)?}
 
-\subsection{Teiaufgabe B)}
+Der Zweck eines Microsoft BizTalk Server ist es Daten zwischen zwei oder
+mehreren Partnern auszutauschen. Dabei ist es in erster Linie unerheblich, um
+welchen Typ es sich dabei handelt. BizTalk kann insich verschiedene Systeme
+verbinden, Daten und Nachrichten mit Partnern auszutauschen und interne und
+externe Prozesse steuern.
+
+Einige Anwendungsfelder sind dabei folgende:
+\begin{itemize}
+  \item Abwicklung von Bestellprozessen mit externen Partnern über Edifact, XML,
+  CSV
+  \item Steuerung und Überwachung von Geschäftsprozessen mittels der BizTalk
+  Workflow Engine
+  \item Integration von Web-Portalen und Online-Shops
+\end{itemize}
+
+\subsection{Teilaufgabe B)}
 \textbf{Welche Rolle spielt die \gqq{Messaging}-Komponente beim Biztalk-Server?
 Machen Sie die Rolle am Beispiel eines eingehenden Auftrags mit Bonitätsprüfung des Kunden
 deutlich.}
+Die Kernkomponente des BizTalk Server ist die Messaging Engine zur
+Nachrichtenverarbeitung. 
 
-Die Messaging-Komponente nimmt Nachrichten von der Umwelt des Biztalk-Servers
-entgegen bzw. gibt Nachrichten an diese weiter. Bei einem eingehenden Auftrag wird
-von der Messaging-Komponente die wesentlichen Bestandteile aus dem Auftrag
-geholt. Über einen Workflow wird die Erstellung von zwei Ausgangsnachrichten
-angestoßen: Eine Nachricht zur Bonitätsprüfung des Kunden und eine Nachricht zur
+Diese bildet den gesamten Prozess der Nachrichtenverarbeitung ab: Vom Empfang
+eingehender Nachrichten und der Ermittlung des Nachrichtenformats über die
+Nachrichtenauswertung bis hin zur Auslieferung an den Nachrichtenempfänger und
+der abschließlichden Nachrichtenverfolgung.
+
+Eine Nachricht zur Bonitätsprüfung des Kunden und eine Nachricht zur
 Verfügbarkeitsprüfung der gewünschten Artikel. Beide Nachrichten werden wieder
 über die Messaging-Komponente an die entsprechenden Anwendungen geschickt.
 
-\subsection{Teiaufgabe C)}
+\clearpage
+\subsection{Teilaufgabe C)}
 \textbf{Welche Aufgabe hat die \gqq{Orchestration}-Komponente beim
 Biztalk-Server?}
 
-Die Orchestration-Komponente regelt das Zusammenspiel der Biztalk-Komponenten.
-Zur Unterstützung eines Geschäftsprozesses werden hier die entsprechenden
-Dienstleistungen aus den anderen Komponenten in einem Workflow angeordnet.
+Die Orchestration-Komponente stellt sog. \textbf{Orchestrations} zur Verfügung.
+Die Orchestrations stellen die Logik eines Programms dar und werden über ein
+grafisches Flussdiagramm entwickelt.
+
+\includegraphicsKeepAspectRatio{BizTalkServer_Overview.png}{1.0}
 
 \clearpage 
