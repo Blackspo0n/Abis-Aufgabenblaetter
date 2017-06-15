@@ -1,29 +1,76 @@
-\section{Aufgabe 1 (Transaktionsstandards)}
-\textbf{Schauen Sie sich den Beispiel-Auftrag im OpenTrans-Format an. Sie finden die Datei auf
-dem Moodle-Server (Datei \gqq{opentrans\_order\_1\_0\_example.xml}). Beantworten
-Sie dazu die folgenden Fragen.}
+\section{Aufgabe 1}
 
 \subsection{Teilaufgabe A)}
-\textbf{Über welchen Mechanismus wird festgelegt, welche Tags in einem Auftrag erlaubt sind?
-Wie heißen die zwei(!) Dateien, die den Aufbau festlegen?}
+\textbf{Nennen und erläutern Sie kurz die 10 Charakteristika betrieblicher
+Anwendungen.}
 
-Der OpenTrans Standardd wird mittels DTD definiert. 
-Die folgenden zwei Datein definieren diesen:
-\begin{itemize}
-  \item \textit{openbase\_1\_0.dtd}
-  \item \textit{openTRANS\_ORDER\_1\_0.dtd}
-\end{itemize}
+1. Strukturierte Daten: Alle Daten haben eine festgelegte Struktur, z.B. enthält jeder
+Auftragsdatensatz ein Feld KDNR (Kundennummer) an einer bestimmten Stelle.
+2. Unterscheidung von Stamm- und Bewegungsdaten: Stammdaten sind weitgehend
+zeitunabhängig (z.B. Kundendaten), während Bewegungsdaten zeitabhängig sind (z.B. ein
+Auftrag enthält ein Auftragsdatum)
+3. Anpassbare Geschäftslogik: In verschiedenen Unternehmen gibt es verschiedene Abläufe.
+Soll dieselbe Software dort dennoch eingesetzt werden können, muss sie an die veränderten
+Abläufe angepasst werden können.
+4. Große Anzahl unterschiedlicher Benutzer: Mitarbeiter in verschiedenen Abteilungen (z.B.
+Einkauf und Rechnungswesen) müssen mit demselben Softwarepaket arbeiten. Sie sollen
+nur die Funktionen angeboten bekommen, die sie benötigen und auch keinen Zugriff auf
+Daten außerhalb ihres Bereichs haben.
+5. Lokalisierung und Internationalisierung: Die Software muss häufig in unterschiedlichen
+Ländern mit unterschiedlichen Sprachen, Währungen, … eingesetzt werden können. Oft
+müssen mehrere Sprachen oder Währungen gleichzeitig unterstützt werden.
+6. Behandlung monetärer Aspekte und Mehrwährungsfähigkeit: Geldbeträge müssen in
+unterschiedlichen Währungen verarbeitet werden können.
+7. Transaktionsorientierung: Bestimmte betriebswirtschaftliche Vorgänge dürfen nicht
+teilweise, sondern nur ganz oder gar nicht ausgeführt werden (z.B. Erfassung eines
+Auftrags).
+8. Dauerhafte Speicherung von Daten: Daten müssen unabhängig von der
+Betriebsbereitschaft der Anwendung dauerhaft zur Verfügung stehen.
+9. Objektrelationale Abbildung: Wenn man ein betriebswirtschaftliches Anwendungssystem
+objektorientiert entwickelt, seine Daten aber in einer relationalen Datenbank speichern
+möchte, muss eine Abbildung zwischen beiden Welten stattfinden.
+10. Schichtenkonzept und Verteilung: Betriebswirtschaftliche Anwendungen laufen meist auf
+mehreren Rechnern gleichzeitig (PCs der Benutzer und zentraler Server). Außerdem gibt es
+mehrere Schichten bei der Softwareentwicklung (Benutzungsoberfläche, Anwendungslogik,
+Datenhaltung).
 
 \subsection{Teilaufgabe B)}
-\textbf{Aus welchen Bestandteilen besteht ein Auftrag (nur Hauptkomponenten angeben)?}
+\textbf{Welche drei Arten von Mustern gibt es? Beschreiben Sie jede Art kurz
+(max. 2 Sätze).}
 
-Ein Auftrag besteht aus folgenden Bestandteilen:
-\begin{itemize}
-  \item ORDER\_HEADER
-  \item ORDER\_ITEM\_LIST
-  \item ORDER\_SUMMARY
-\end{itemize}
+Analysemuster werden in den Phasen vor dem eigentlichen Anwendungsentwurf im
+Rahmen der objektorientierten Analyse (ooA) benutzt.
+Entwurfsmuster stellen „bewährte generische Lösungen für häufig wiederkehrende
+Entwurfsprobleme“ dar.
+Unterstützungsmuster sind „an sich bereits nützlich“ und beschreiben, wie mit
+Analysemustern umgegangen werden soll (z.B. bei der Abbildung auf Entwurfsmuster) bzw.
+stellen wieder verwendbare Konzepte im späteren Designs dar.
 
-Definiert sind diese Bestandteile in der Datei:
-\textbf{openTRANS\_ORDER\_1\_0.dtd}
+\subsection{Teilaufgabe C)}
+\textbf{Welche Vorteile bzw. Nachteile/Einschränkungen hat das Analysemuster
+Organisationsstruktur? Nennen Sie mindestens einen Vorteil und mindestens einen
+Nachteil/eine Einschränkung.}
+
+Vorteil: Beliebige Hierarchien mit beliebig vielen Stufen lassen sich ohne Änderung abbilden.
+Nachteil: Man kann im Modell nicht mehr erkennen, welche Hierarchiestufen es konkret gibt.
+
+
+\subsection{Teilaufgabe D)}
+\textbf{Beschreiben Sie den Unterschied zwischen „Organisationsstruktur“ und
+„Verantwortlichkeit“.}
+
+
+\subsection{Teilaufgabe E)}
+\textbf{Erstellen Sie aus den beiden in der Vorlesung genannten Beispielen zum Analysemuster
+„Organisationsstruktur“ (Folien 24 und 25) ein gemeinsames Klassendiagramm und
+erweitern Sie dieses: Auch das Colaautomaten-Serviceteam 4711 ist dem Bostoner
+Verkaufsbüro in Bezug auf das Bereichsmanagement unterstellt und berichtet an dieses.
+Beim Produktsupport berichtet das Colaautomaten-Serviceteam 4711 an das
+Colaautomaten-Servicecenter.}
+
+\subsection{Teilaufgabe F)}
+\textbf{Beschreiben Sie kurz die Grundidee beim Analysemuster „Wissensebene der
+Verantwortlichkeit“.}
+
+
 \clearpage 
