@@ -6,6 +6,10 @@ Anwendungen.}
 
 \subsubsection{Strukturierte Daten}
 Bei diesen Daten handelt es sich um Daten die einer festen Struktur folgen.
+Ein bestimmtes Element in einer Zusammenstellung von Daten ist mit einer
+festgelegten Bedeutung versehen, die sich in der Regel auch darin äußert, dass
+dass Element einen Namen erhält.
+
 Ein Beispiel dafür wäre die Lieferanten Nummer in der Lieferanten Datenbank.
 
 \subsubsection{Stamm- und Bewegungsdaten}
@@ -22,9 +26,9 @@ geschäftsprozesse zuordnen.
 Ein Unternehmen ist ein dynamisches Kontrukt, welches viele verschiedene
 Prozesse beinhaltet. Einige dieser Prozesse können sich mit der Zeit wandeln.
 Dementsprechend ist es wichtig, dass die Software dementsprechend anpassbar, \zB
-über Parameter, ist.
+über Parameter, ist ohne den Quellcode zu ändern.
 
-\subsubsection{Berechtigung der Nutzer}
+\subsubsection{Große Anzahl von Nutzern}
 Ein betrieblich genutzte Software wird, in den aller meisten Fällen, nicht nur
 von einer einzigen Person \bzw Abteilung benutzt. Es ist deshalb umso wichtiger
 , dass eine sollche Software sicherstellen kann, dass kein unbefugter Zugriff
@@ -33,7 +37,7 @@ auf Daten erfolgen kann.
 Um das zu realisieren benutzen die meisten ERP-Systeme Gruppen- und
 Einzelberechtigungen um einzelne Programmfunktionen aus und an zu schalten.
 
-\subsubsection{Lokalisierung und Glokalisierung}
+\subsubsection{Lokalisierung und Internationalisierung}
 Um den länderübergreifenden Einsatz zu ermöglichen, muss die Software für die
 verschiedenen Länder anpassbar sein. 
 
@@ -60,8 +64,8 @@ Datenbank kann man diese unabhängig von anderen Transaktionen ausführen und
 zurück nehmen.
 
 \subsubsection{Dauerhafte Speicherung von Daten}
-Betriebsrelevante Daten müssen dauerhaft und für andere Verfügbar gespeichert
-werden. 
+Betriebsrelevante Daten müssen dauerhaft (d.h. persistent) und für andere
+verfügbar gespeichert werden. 
 
 Standardmäßig reicht dafür eine unternehmensinterne Datenbank, die von der
 Software beschrieben und gelesen wird, völlih aus.
@@ -88,8 +92,10 @@ unterteilt.
   objektorientierten Analyse (ooA) genutzt.
   
   \item[Unterstützungsmuster:] 
-  Unterstützungsmuster beschreiben den Umgang mit
-  Analysemustern und stellen Konzepte im späteren Entwurf dar.
+  Unterstützungsmuster sind „an sich bereits nützlich“ und beschreiben, wie mit
+  Analysemustern umgegangen werden soll (z.B. bei der Abbildung auf
+  Entwurfsmuster) bzw. stellen wieder verwendbare Konzepte im späteren
+  Designs dar.
   
   \item[Entwurfsmuster:] 
   Entwurfsmuster stellen bewährte Lösungsschablonen für wiederkehrende
@@ -102,9 +108,8 @@ Organisationsstruktur? Nennen Sie mindestens einen Vorteil und mindestens einen
 Nachteil/eine Einschränkung.}
 
 \begin{description}
-  \item[Vorteile:] Verschiedene
-  Hierarchie-Arten implementierbar (\zB Hierachrie eines Subunternehmen kann in
-  den Entwurf mit rein genommen werden.
+  \item[Vorteile:] Verschiedene Hierarchie-Arten implementierbar (\zB
+  Hierachrie eines Subunternehmen kann in den Entwurf mit rein genommen werden.
   
   \item[Nachteile:] Die aktuelle Tiefe der Hierarchie-Beziehung lässt sich nicht
   mehr ablesen.
