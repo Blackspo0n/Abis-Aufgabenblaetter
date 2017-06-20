@@ -4,82 +4,96 @@
 \textbf{Nennen und erläutern Sie kurz die 10 Charakteristika betrieblicher
 Anwendungen.}
 
-\begin{description}
-  \item[Strukturierte Daten:]
-  Bei strukturierten Daten handelt es sich um eine Menge von Daten denen eine
-  bestimmte, festgelegte Struktur zugrunde liegt.
-  \item[Stamm- und Bewegungsdaten:]
-  
-  Stammdaten sind Informationen, die für die Dauer ihrer Existenz nicht \bzw nur selten geändert werden müssen. Sie haben
-  in der Regel keinen Zeitbezug.
-  Ein Beispiel für Stammdaten sind Kundendaten.
-  
-  Bewegungsdaten dagegen sind Informationen, die im Regelfall mit einer
-  betriebswirtschaftlichen Transaktion im Zusammenhang stehen. Daher besitzen
-  Bewegungsdaten auch einen Zeitbezug(\zB Erfassung eines Auftrags).
-  \item[Anpassbare Geschäftslogik:]
-  
-  Da Unternehmen Ihre eigenen Abläufe abbilden wollen, muss eine Software anpassbar sein. Nur so kann diese Software von
-  verschiedenen Benutzern eingesetzt werden.
-  \item[Große Anzahl unterschiedlicher Benutzer:]
-  
-  Betriebswirtschaftliche Informationssysteme müssen meist eine große Anzahl an Nutzern verwalten. Damit
-  keine ungewollten Änderungen an dem System durchgeführt werden, weist man
-  einzelnen Gruppen oder Personen Rechte im Rahmen ihrer Aufgaben im Unternehmen
-  zu.
-  \item[Lokalisierung und Glokalisierung:]
-  
-  Um den länderübergreifenden Einsatz zu ermöglichen, muss die Software für die verschiendenen Länder anpassbar sein.
-  Darunter fallen Dinge wie die Einstellung der Sprache, Währung und
-  Einheitssysteme.
-  \item[Behandlung monetärer Aspekte und Mehrwährungsaspekte:]
-  
-  Für verschiedene Länder müssen Geldbeträge in unterschiedlichen Währungen verarbeitet werden.
-  Dazu sind die verschiedenen Dinge aus Punkt fünf von Relevanz um \zB zwischen
-  verschiedenen Währungseinheiten umrechnen zu können und somit den Geldumtausch
-  zu gewährleisten.
-  \item[Transaktionsorientierung:]
-  
-  Einige betriebswirtschaftliche Vorgänge müssen als atomarer Vorgang
-  durchgeführt werden. Diese Vorgänge nur komplett und als ganzes durchgeführt
-  werden oder garnicht. Eine teilweise Ausführung ist nicht erlaubt und führt zur Inkonsistenz.
-  \item[Dauerhafte Speicherung von Daten:]
-  
-  Der Anwendungszustand darf keinen Einfluss auf die dauerhafte Speicherung der Daten haben. Daraus
-  resultiert, dass Daten auch dann zur Verfügung stehen, wenn die
-  Betriebsbereitschaft der Anwendung nicht gegeben ist.
-  \item[Objektrelationale Abbildung:]
-  
-  Wird ein Anwendungssystem für betriebswirtschaftliche Zwecke objektorientiert entwickelt, ihr aber eine
-  relationale Datenbank zugrunde liegt, so muss eine Abbildung der beiden Welten
-  stattfinden, dass sogenannte ORM(Objekt-Relationelle-Mapping).
-\end{description}   
+\subsubsection{Strukturierte Daten}
+Bei diesen Daten handelt es sich um Daten die einer festen Struktur folgen.
+Ein Beispiel dafür wäre die Lieferanten Nummer in der Lieferanten Datenbank.
+
+\subsubsection{Stamm- und Bewegungsdaten}
+Die typischen Stammdaten sind Artikelstammdaten, aber auch Kundendaten und
+Lieferantendaten fallen in dieses Schema. Diese Daten werden einmalig
+hinterlegt und sind meistens von einem Geschäftsprozess losgelöst zu sehen, da
+in diesen keine zeitliche Betrachtung stattfindet.
+
+Bewegungsdaten erfassen, wie der Name schon sagt, bewegungen meist über einen
+bestimmten Zeitraum. Meistens kann man konkreten Bewegungsdaten konkrete
+geschäftsprozesse zuordnen.
+
+\subsubsection{Anpassbare Geschäftslogik}
+Ein Unternehmen ist ein dynamisches Kontrukt, welches viele verschiedene
+Prozesse beinhaltet. Einige dieser Prozesse können sich mit der Zeit wandeln.
+Dementsprechend ist es wichtig, dass die Software dementsprechend anpassbar, \zB
+über Parameter, ist.
+
+\subsubsection{Berechtigung der Nutzer}
+Ein betrieblich genutzte Software wird, in den aller meisten Fällen, nicht nur
+von einer einzigen Person \bzw Abteilung benutzt. Es ist deshalb umso wichtiger
+, dass eine sollche Software sicherstellen kann, dass kein unbefugter Zugriff
+auf Daten erfolgen kann.
+
+Um das zu realisieren benutzen die meisten ERP-Systeme Gruppen- und
+Einzelberechtigungen um einzelne Programmfunktionen aus und an zu schalten.
+
+\subsubsection{Lokalisierung und Glokalisierung}
+Um den länderübergreifenden Einsatz zu ermöglichen, muss die Software für die
+verschiedenen Länder anpassbar sein. 
+
+\begin{itemize}
+  \item Sprache
+  \item Währung
+  \item Länderspezifische Steuersätze
+  \item Einheiten 
+\end{itemize}
+
+\subsubsection{Behandlung monetärer Aspekte und Mehrwährungsaspekte}
+Für verschiedene Länder müssen Geldbeträge in unterschiedlichen Währungen
+verarbeitet werden. Dazu sind die verschiedenen Dinge aus Punkt fünf von
+Relevanz um \zB zwischen verschiedenen Währungseinheiten umrechnen zu können
+und somit den Geldumtausch zu gewährleisten.
+
+\subsubsection{Transaktionsorientierung}
+Einige Geschäftsprozesse müssen komplett durchlaufe. Sollte das aus
+Irgendwelchen Gründen nicht funktionieren, so muss es Möglich sein den gesamten
+Prozess zurück zu nehmen. 
+
+Dies wird mittels Transaktionen realisiert. Ähnlich einer transaktion in eine
+Datenbank kann man diese unabhängig von anderen Transaktionen ausführen und
+zurück nehmen.
+
+\subsubsection{Dauerhafte Speicherung von Daten}
+Betriebsrelevante Daten müssen dauerhaft und für andere Verfügbar gespeichert
+werden. 
+
+Standardmäßig reicht dafür eine unternehmensinterne Datenbank, die von der
+Software beschrieben und gelesen wird, völlih aus.
+
+\subsubsection{Objektrelationale Abbildung}
+Eine stärke von guter betrieblicher Software ist die Darstellung von Daten als
+gekapseltes Objekt. Diese Objekt kann dann von der Software mit wenig Aufwand an
+mehreren Stellen gleichzeitig verwendet werden.
+
+typiuscherweiße wird dieses Verhalten mittels eines OR-Mappers (ORM)
+implementiert und ist für den Benutzer der Software meistens irrelevant.
 
 
 \subsection{Teilaufgabe B)}
 \textbf{Welche drei Arten von Mustern gibt es? Beschreiben Sie jede Art kurz
 (max. 2 Sätze).}
 
-
 Muster werden in das Analysemuster, Unterstützungsmuster und Entwurfsmuster
 unterteilt.
+
 \begin{description}
   \item[Analysemuster:]
+  Analysemuster werden in den Phasen vor dem Anwendungsentwurf im Rahmen der
+  objektorientierten Analyse (ooA) genutzt.
   
-  Analysemuster werden in der Phase des Anwendungsentwurfs
-  eingesetzt. Diese dienen der objektorientierten Analyse während der
-  Projektplanung.
   \item[Unterstützungsmuster:] 
-  
   Unterstützungsmuster beschreiben den Umgang mit
-  Analysemustern. Ein Beispiel hierfür wäre die Abbildung eines Analysemusters
-  auf einem Entwurfsmuster, das Ergebnis dieser Abbildung stellt also ein
-  wiederverwendbares Konzept im späteren Design dar.
-  \item[Entwurfsmuster:] 
+  Analysemustern und stellen Konzepte im späteren Entwurf dar.
   
-  Entwurfsmuster stellen "`bewährte generische Lösung für
-  häufig wiederkehrende Entwurfsprobleme"' dar. Dabei kann \ggfs zwischen
-  allgemeinen und anwendungsspezifischen Analysemustern unterschieden werden.
+  \item[Entwurfsmuster:] 
+  Entwurfsmuster stellen bewährte Lösungsschablonen für wiederkehrende
+  Entwurfsprobleme dar.
 \end{description}
 
 \subsection{Teilaufgabe C)}
@@ -88,23 +102,24 @@ Organisationsstruktur? Nennen Sie mindestens einen Vorteil und mindestens einen
 Nachteil/eine Einschränkung.}
 
 \begin{description}
-  \item[Vorteile:] Durch den Einsatz des Anaylemusters Organisationsstruktur
-  kann ein Modell für einen Typ mehrere Hierarchien besitzen und lässt sich
-  gleichzeitig über einen Zeitraum abbilden.
-  \item[Nachteile:] Die aktuelle Art der Hierachiebeziehung lässt sich nicht
+  \item[Vorteile:] Verschiedene
+  Hierarchie-Arten implementierbar (\zB Hierachrie eines Subunternehmen kann in
+  den Entwurf mit rein genommen werden.
+  
+  \item[Nachteile:] Die aktuelle Tiefe der Hierarchie-Beziehung lässt sich nicht
   mehr ablesen.
 \end{description}
 
-
 \subsection{Teilaufgabe D)}
-\textbf{Beschreiben Sie den Unterschied zwischen „Organisationsstruktur“ und
-„Verantwortlichkeit“.}
-Während bei dem Analysemuster Organisationsstruktur nur Beziehungen zwischen
-Organisationen über einen bestimmen Zeitraum nach definierten Regeln modelliert werden können,
-verallgemeinert das Analysemuster die Verantwortlichkeit. Dadurch
-ist es möglich, auch Beziehungen zwischen Personen und Organisationen zu
-modellieren.
+\textbf{Beschreiben Sie den Unterschied zwischen \gqq{Organisationsstruktur} und
+\gqq{Verantwortlichkeit}.}
+Während bei dem Analysemuster \gqq{Organisationsstruktur} nur Beziehungen
+zwischen Organisationen über einen bestimmen Zeitraum nach modelliert werden
+können, verallgemeinert das Analysemuster \gqq{Verantwortlichkeit} die Beziehung
+zwischen \gqq{Objekten}.
 
+Dadurch ist es möglich, komplexe Beziehungen zwischen Personen und bzw. oder
+Organisationen abzubilden.
 
 \subsection{Teilaufgabe E)}
 \textbf{Erstellen Sie aus den beiden in der Vorlesung genannten Beispielen zum Analysemuster
@@ -121,13 +136,13 @@ Colaautomaten-Servicecenter.
 \includegraphicsKeepAspectRatio{Aufgabe1eueberarbeitet.png}{1}
 
 \subsection{Teilaufgabe F)}
-\textbf{Beschreiben Sie kurz die Grundidee beim Analysemuster „Wissensebene der
-Verantwortlichkeit“.}
+\textbf{Beschreiben Sie kurz die Grundidee beim Analysemuster \gqq{Wissensebene
+der Verantwortlichkeit}.}
 
 Die Grundidee bei der Wissensebene der Verantwortlichkeit ist die Zweiteilung
 des Modells Organisationsstruktur in eine operationelle Ebene und eine
-Wissensebene. Die operationelle Ebene enthält die Typen "`Verantwortlichkeit"'
-und "`Party"' und deren Beziehungen. Die Wissensebene hält die allgemeinen
-Regeln fest, die die zuständigen Strukturen bestimmen.
+Wissensebene. Die operationelle Ebene enthält die Typen
+\gqq{Verantwortlichkeit} und \gqq{Party} und deren Beziehungen. Die
+Wissensebene hält die allgemeinen Regeln fest, die die zuständigen Strukturen bestimmen.
 
-\clearpage 
+\clearpage
