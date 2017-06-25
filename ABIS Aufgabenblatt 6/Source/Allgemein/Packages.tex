@@ -38,7 +38,7 @@
 \usepackage{tikz}
 \usepackage{arrayjob}
 \usepackage{xmpincl}
-
+\usepackage{}
 \usepackage[nottoc]{tocbibind}
 
 % Symbolverzeichnis
@@ -89,6 +89,18 @@
 \definecolor{colIdentifier}{rgb}{0,0,0}
 \definecolor{colComments}{rgb}{0,0.5,0}
 \definecolor{colString}{rgb}{1,0,0}
+\definecolor{lightgray}{rgb}{0.95, 0.95, 0.95}
+\definecolor{darkgray}{rgb}{0.4, 0.4, 0.4}
+%\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\definecolor{editorGray}{rgb}{0.95, 0.95, 0.95}
+\definecolor{editorOcher}{rgb}{1, 0.5, 0} % #FF7F00 -> rgb(239, 169, 0)
+\definecolor{editorGreen}{rgb}{0, 0.5, 0} % #007C00 -> rgb(0, 124, 0)
+\definecolor{orange}{rgb}{1,0.45,0.13}      
+\definecolor{olive}{rgb}{0.17,0.59,0.20}
+\definecolor{brown}{rgb}{0.69,0.31,0.31}
+\definecolor{purple}{rgb}{0.38,0.18,0.81}
+\definecolor{lightblue}{rgb}{0.1,0.57,0.7}
+\definecolor{lightred}{rgb}{1,0.4,0.5}
 
 \lstset{
     float=hbp,
@@ -155,6 +167,28 @@
 		require_once,return,print,unset},
 }
 
+\lstdefinestyle{java}{
+	language=java,
+	  stepnumber=1,  
+  backgroundcolor=\color{editorGray},
+  basicstyle={\footnotesize\ttfamily},   
+  frame=b,
+  xleftmargin={0.75cm},
+  numbers=left,
+  numberfirstline=true,
+  numberstyle=\footnotesize,
+  xleftmargin=4.0ex,
+  %upquote=true,
+  showlines=true,
+  literate=%
+  {Ö}{{\"O}}1
+  {Ä}{{\"A}}1
+  {Ü}{{\"U}}1
+  {ß}{{\ss}}1
+  {ü}{{\"u}}1
+  {ä}{{\"a}}1
+  {ö}{{\"o}}1
+}
 
 \pdftrailerid{}
 \pdfsuppressptexinfo15

@@ -2,13 +2,271 @@
 
 \textbf{Nehmen Sie an, dass Sie ein Java-Programm erstellen müssen, in dem Sie eine Klasse
 „Fahrzeuge“ benutzen wollen. Allerdings werden später als Objekte unterschiedliche Arten
-von Fahrzeugen, nämlich „Fahrräder“, „Motorräder“ und „Autos“ vorkommen, die auch zum
+von Fahrzeugen, nämlich \gqq{Fahrräder} und \gqq{Autos} vorkommen, die auch zum
 Teil voneinander abweichende Attribute und unterschiedliche Realisierungen derselben
 Methoden haben werden. Es ist auch damit zu rechnen, dass später weitere
-Fahrzeugklassen (z.B. Tretroller) hinzukommen. Erstellen Sie eine einfache
-Implementierung, in der die Muster „Abstrakte Fabrik“ und „Singleton“ verwendet werden
-(dabei soll „Singleton“ nicht im Zusammenhang mit der Klasse „Fahrzeuge“ verwendet
-werden).
-Abzugeben sind der Quelltext und ein Beispielablauf!}
+Fahrzeugklassen (\zB Tretroller) hinzukommen. Erstellen Sie eine einfache
+Implementierung, in der die Muster \gqq{Abstrakte Fabrik} und \gqq{Singleton}
+verwendet werden (dabei soll \gqq{Singleton} nicht im Zusammenhang mit der
+Klasse \gqq{Fahrzeuge} verwendet werden).}
+
+\textbf{Abzugeben sind der Quelltext und ein Beispielablauf, der ein Fahrrad
+und ein Auto zeigt.}
+
+\begin{lstlisting}[language=java, style=java, caption={Main.java},
+label={lst:lst1}]
+package Main;
+import Entities.Fahrzeug;
+import Factory.AbstractFactory;
+import Factory.FactoryCreator;
+
+public class Main {
+	public static void main(String[] args) {
+				// Zum verdeutlichen Variablen explizit deklariert
+		AbstractFactory factory;
+		Fahrzeug fahrzeug;
+		
+		factory = FactoryCreator.getInstance().createfactory("Auto");
+		fahrzeug = factory.create(new String[]{"Silber", "VW Passat", "106"});
+		
+		fahrzeug.beschreibung();
+		fahrzeug.beschleunigen();
+		fahrzeug.hupe();
+		fahrzeug.bremsen();
+		
+		factory = FactoryCreator.getInstance().createfactory("Fahrrad");
+		fahrzeug = factory.create(new String[]{"Grün","27", "Scheibenbremsen"});
+		
+		fahrzeug.beschreibung();
+		fahrzeug.beschleunigen();
+		fahrzeug.hupe();
+		fahrzeug.bremsen();
+		
+	}
+}
+\end{lstlisting}
+
+
+\begin{lstlisting}[language=java, style=java, caption={Fahrzeug.java},
+label={lst:lst2}]
+package Entities;
+
+public interface Fahrzeug {
+	public void beschreibung();
+	public void bremsen();
+	public void beschleunigen();
+	public void hupe();
+}
+\end{lstlisting}
+
+
+\begin{lstlisting}[language=java, style=java, caption={Fahrrad.java},
+label={lst:lst3}]
+package Entities;
+
+public class Fahrrad implements Fahrzeug {
+	private String Farbe;
+	private String anzahlDerGaenge;
+	private String BremsenArt;
+	
+	public Fahrrad(String farbe, String anzahlDerGaenge, String bremsenArt) {
+		setFarbe(farbe);
+		setAnzahlDerGaenge(anzahlDerGaenge);
+		setBremsenArt(bremsenArt);
+	}
+	
+	public String getFarbe() {
+		return Farbe;
+	}
+
+	public void setFarbe(String farbe) {
+		Farbe = farbe;
+	}
+
+	public String getAnzahlDerGaenge() {
+		return anzahlDerGaenge;
+	}
+
+	public void setAnzahlDerGaenge(String anzahlDerGaenge) {
+		this.anzahlDerGaenge = anzahlDerGaenge;
+	}
+
+	public String getBremsenArt() {
+		return BremsenArt;
+	}
+
+	public void setBremsenArt(String bremsenArt) {
+		BremsenArt = bremsenArt;
+	}
+
+	@Override
+	public void bremsen() {
+		System.out.println("[Fahrrad] Der Radfahrer bremst!");
+	}
+
+	@Override
+	public void beschleunigen() {
+		System.out.println("[Fahrrad] Beschleunigen. Immer Flotter und immer weiter, so der Radfahrer heiter!");
+	}
+
+	@Override
+	public void beschreibung() {
+		System.out.println("[Fahrrad] Farbe = " + getFarbe() + ", BremsenArt = " + getBremsenArt() + ", Anzahl der Gänge = " + getAnzahlDerGaenge());
+	}
+
+	@Override
+	public void hupe() {
+		System.out.println("[Fahrrad] Ringring");	
+	}
+}
+\end{lstlisting}
+
+
+\begin{lstlisting}[language=java, style=java, caption={Auto.java},
+label={lst:lst4}]
+package Entities;
+
+public class Auto implements Fahrzeug {
+	private String Farbe;
+	private String Marke;
+	private int Leistung;
+	
+	public Auto(String Farbe, String Marke, int Leistung) {
+		setFarbe(Farbe);
+		setMarke(Marke);
+		setLeistung(Leistung);
+	}
+	
+	public String getFarbe() {
+		return Farbe;
+	}
+
+	public void setFarbe(String farbe) {
+		Farbe = farbe;
+	}
+
+	public String getMarke() {
+		return Marke;
+	}
+
+	public void setMarke(String marke) {
+		Marke = marke;
+	}
+
+	public int getLeistung() {
+		return Leistung;
+	}
+
+	public void setLeistung(int leistung) {
+		Leistung = leistung;
+	}
+
+	@Override
+	public void bremsen() {
+		System.out.println("[Auto] Die Reifen quitschen laut während des Bremsens.");
+	}
+
+	@Override
+	public void beschleunigen() {
+		System.out.println("[Auto] Der Fahrer gibt Vollgas");
+	}
+
+	@Override
+	public void beschreibung() {
+		System.out.println("[Auto] Farbe = " + getFarbe() + ", Marke = " + getMarke() + ", Leistung = " + getLeistung());
+		
+	}
+
+	@Override
+	public void hupe() {
+		System.out.println("[Auto] Moooeep");
+		
+	}
+}
+\end{lstlisting}
+
+
+\begin{lstlisting}[language=java, style=java, caption={AbstractFactory.java},
+label={lst:lst5}]
+package Factory;
+
+import Entities.Fahrzeug;
+
+public abstract class AbstractFactory {
+	public abstract Fahrzeug create(String[] FactoryParameters);
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=java, style=java, caption={FahrradFactory.java},
+label={lst:lst6}]
+package Factory;
+
+import Entities.Fahrrad;
+import Entities.Fahrzeug;
+
+public class FahrradFactory extends AbstractFactory {
+	@Override
+	public Fahrzeug create(String[] FactoryParameters) {
+		if(FactoryParameters.length != 3) return null;
+		
+		return new Fahrrad(FactoryParameters[0], FactoryParameters[1], FactoryParameters[2]);
+	}
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=java, style=java, caption={AutoFactory.java},
+label={lst:lst7}]
+package Factory;
+
+import Entities.Auto;
+import Entities.Fahrzeug;
+
+public class AutoFactory extends AbstractFactory {
+	@Override
+	public Fahrzeug create(String[] FactoryParameters) {
+		if(FactoryParameters.length != 3) return null;
+			
+		return new Auto(FactoryParameters[0], FactoryParameters[1], Integer.parseInt(FactoryParameters[2]));		
+	}
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=java, style=java,
+caption={FactoryCreator.java}, label={lst:lst8}]
+package Factory;
+
+public class FactoryCreator {
+	// Singleton Pattern
+	public static FactoryCreator instance;
+	
+	private FactoryCreator() {
+		// Leerer privater Konstruktor 
+	};
+	
+	public static FactoryCreator getInstance() {
+		if(instance == null) {
+			instance = new FactoryCreator();
+		}
+		
+		return instance;
+	}
+	
+	public AbstractFactory createfactory(String FactoryType) {
+		if(FactoryType.equals("Fahrrad")) {
+			return new FahrradFactory();
+		}
+		
+		if(FactoryType.equals("Auto")) {
+			return new AutoFactory();
+		}
+		
+		return null;
+	}
+}
+\end{lstlisting}
+
+Ausgabe der Konsole:
+
+\includegraphicsKeepAspectRatio{img2.png}{1}
 
 \clearpage
