@@ -1,7 +1,47 @@
 \section{Aufgabe 1 (Strategiemuster)}
-\textbf{Erweitern Sie das Beispiel zum Strategie-Muster aus der Vorlesung, indem Sie eine (Turbo-)
-Stockente erzeugen, die ihr Flugverhalten von „FliegtMitFluegeln“ auf
-„FliegtMitRaketenantrieb“ umschalten kann. Welche neue(n) Klasse(n) müssen Sie
-implementieren? Erstellen Sie den entsprechenden Quellcode.}
+\textbf{Erweitern Sie das Beispiel zum Strategie-Muster aus der Vorlesung, indem Sie eine (Schrei-)
+Stockente erzeugen, die ihr Quakverhalten von „Quaken“ auf „Schreien“ umschalten kann.
+Welche neue(n) Klasse(n) müssen Sie implementieren?
+Erstellen Sie den entsprechenden Quellcode.}
 
+Da wir das Interface Quakverhalten haben und wir nur ein neues Quakverhalten
+implementieren müssen, können wir das Interface \textbf{Quakverhalten} in eine
+Klasse namens \gqq{Schreien} implementieren:
+
+\begin{lstlisting}[language=java, style=java, caption={Schreien.java},
+label={lst:lst1}]
+public class Schreien implements QuakVerhalten {
+    public void quaken() {
+        System.out.println("Quarwwooooaaaaaarr!");
+    }
+}
+\end{lstlisting}
+
+Wir müssen anschließend nur die Funktion setQuakVerhalten mit unserem
+Objekt aufrufen, damit wir das Quakverhalten zur Laufzeit ändern können:
+
+\begin{lstlisting}[language=java, style=java, caption={EntenSimulator.java},
+label={lst:lst2}]
+	[...]
+    public static void main(String[] args) {
+        ArrayList<Ente> entenliste = new ArrayList<Ente>();
+        entenliste.add(new Stockente());
+        entenliste.add(new Moorente());
+        entenliste.add(new Gummiente());
+        entenliste.add(new Lockente());
+
+        for (int x=0; x < entenliste.size(); x++)
+            enteInAktion(entenliste.get(x));
+        
+        entenliste.get(0).setQuakVerhalten(new Schreien());
+        
+        enteInAktion(entenliste.get(0));
+    }
+	[...]
+\end{lstlisting}
+\clearpage
+
+\textbf{Konsolenausgabe:}
+
+\includegraphicsKeepAspectRatio{img3.png}{1}
 \clearpage
