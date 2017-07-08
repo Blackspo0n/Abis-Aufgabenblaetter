@@ -1,0 +1,85 @@
+\section{Aufgabe 2 (Implementierung eines Beispiels in Java)}
+\textbf{Implementieren Sie eine sehr einfache Mini-Tabellenkalkulation:
+Erstellen Sie eine Tabelle mit drei Spalten und fünf Zeilen. In der ersten Spalte sollen zu
+Beginn die Zahlen 1 bis 5 ausgegeben werden. Der Benutzer kann hier aber auch eigene
+Werte eingeben. In der zweiten Spalte sollen automatisch die Quadratwurzeln der Zahlen
+aus der ersten Spalte stehen (am Anfang also 1, 1,414, 1,732, …). In der dritten Spalte
+schließlich sollen die 3. Wurzeln (am Anfang also 1, 1,26…, 1,442…, … ) ausgegeben
+werden.}
+
+\textbf{Erläutern Sie im Quellcode kurz, welche Methoden Sie wie und warum
+implementieren.}
+
+Die Basis des TableModels bildet die Rumfimplementierung, die uns in Moodle zur
+Verfügung gestellt worden ist. Statt das Interface \gqq{TableModel} zu
+implementieren, besteht in Swing die Möglichkeit von der abstrakten Klasse 
+\gqq{AbstractTableModel} zu erben. Der Vorteil besteht darin, dass weniger
+Methoden implementieren werden müssen, als wenn wir direkt das Interface
+implementieren.
+
+Folgende Methoden müssen implementiert werden, wenn von
+\gqq{AbstractTableModel} abgeleitet worden ist:
+
+\begin{description}
+\item[getRowCount] Gibt die Anzahl der Zeilen us
+\item[getColumnCount] Gibt die Anzahl der Spalten aus
+\item[getColumnName] Gibt den Namen der Spalte mittels eines Index aus
+\item[getValueAt] Gibt an, welchen Wert eine Zelle besitzt.
+\end{description}
+
+Unser implementiertes Model sieht folgendermaßen aus:
+\begin{lstlisting}[language=java, style=java, caption={WurzelTableModel.java},
+label={lst:lst1}]
+package tableModel;
+
+import javax.swing.table.*;
+
+class WurzelTableModel extends AbstractTableModel {
+	final String[ ] columnNames = {"X", "Wurzel", "3. Wurzel"};
+	int[] ersteSpalte = {1,2,3,4,5};
+	private static final long serialVersionUID = 930096348695238927L;
+	
+	/**
+	 * Da wir nur 3 Saplten haben, ist hier hardcoded eine 3
+	 */
+	public int getColumnCount() {
+		return 3;
+	}
+    /**
+	 * Zurückgegeben wird hier die Länge des Arrays ersteSpalte.
+	 */
+	public int getRowCount() {
+		return ersteSpalte.length;
+	}
+
+
+	/**
+	 * Mit dieser Funktion wird der Name der Spalte zurückgegeben.
+	 * Zugegriffen wird auf das Array Columnname
+	 */
+	public String getColumnName(int columnIndex) {
+		return columnNames[columnIndex];
+	}
+	/**
+	 * Diese Funktion errechnet unsere Werte und gibt die für jede einzelne
+	 * Position entsprechend aus
+	 */
+	public Object getValueAt(int rowIndex, int columnIndex) {
+		switch (columnIndex) {
+		case 2:
+			return Math.pow(ersteSpalte[rowIndex], (1.0/3));
+		case 1:
+			return Math.sqrt(ersteSpalte[rowIndex]);
+		case 0:
+		default:
+			return ersteSpalte[rowIndex];
+		}
+	}
+}
+\end{lstlisting}
+
+Unser Ausgabe sieht dann folgendermaßen aus:
+
+\includegraphicsKeepAspectRatio{img1.png}{1}
+
+\clearpage

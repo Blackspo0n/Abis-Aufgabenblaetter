@@ -1,0 +1,69 @@
+\section{Aufgabe 1 (Konzept und Aufbau des MVC-Musters)}
+
+\subsection{Teilaufgabe A)}
+\textbf{Aus welchen Komponenten besteht das MVC-Muster und welche Aufgabe hat die
+jeweilige Komponente?}
+
+\subsubsection{Model}
+Die erste Ebene dieses Musters ist die Modelkomponente. Sie representiert
+Daten in der Anwendung und implementiert das Muster "`Observer"' um Änderungen
+der View mit zu teilen.
+
+Die Aufgabe des Models ist es Daten unabhängig von dem Controller und der View
+zu halten. Durch diese Eigenschaft kann es zu einem Modell mehrere Controller
+und mehrere Views geben.
+
+\subsubsection{View}
+Die nächste Komponente ist die View. Diese representiert die
+Interaktionsschicht, in den meisten Fällen eine GUI, für den Benutzer.
+
+Sie hält jeweils Referenzen zu den Models und dem Controller.
+
+Somit hat die View die Aufgabe Daten aus dem Model anzuzeigen. Dies kann auf
+unterschiedliche Art, \zB als Tabelle, geschehen.
+
+\subsubsection{Controller}
+
+Die Logikschicht bildet der Controller. In dieser Komponente wird auf
+Benutzereingaben reagiert, wertet diese aus und agiert entsprechend.
+
+\clearpage
+\subsection{Teilaufgabe B)}
+\textbf{Welche Muster finden sich im zusammengesetzen MVC-Muster wieder? Nennen und
+beschreiben Sie (kurz!) drei enthaltene Muster.}
+
+\subsubsection{Strategie}
+Wird verwendet in: \textbf{View} \& \textbf{Controller}
+
+Eine Strategie beschreibt, was ein Objekt zutun hat ohne es aber direkt zu
+implementieren. 
+
+In unserem Konzept bedeutet das, dass die View weiß, dass es ein Controller gibt
+und was dieser kann, aber nicht weiß, was dieser genau macht.
+
+\subsubsection{Composite}
+Wird verwendet in: \textbf{View}
+
+Mittels dem Composite ist es Ganz-teil Herachrichen zu implementieren.
+
+Im Kontext des Musters kann eine View aus mehreren Komponenten bestehen.
+
+\subsubsection{Observer}
+Wird verwendet in: \textbf{Modell}
+
+Das Muster Observer informiert registrierte Klassen über veränderungen an den
+eigenen Eigenschaften.
+
+Im Kontext des MVC Konzept informiert das Modell so die View, dass sich daten
+geändert haben.
+
+\subsection{Teilaufgabe C)}
+\textbf{In den Java Swing-Klassen wird das MVC-Muster nicht 1:1 implementiert. Welche
+Veränderung wird dort vorgenommen und warum geschieht dies?}
+
+Die Komponenten in Swing werden in einer Delegaten zusammengefasst.
+Dieses Design wurde aus Performance-Gründen so gewählt, da beim MVC-Muster
+erhöhte Aufrufbeziehungen zwischen View und Controller bestehen und so versucht
+wird verschatelte Aufrufe zu minimieren.
+
+\clearpage
