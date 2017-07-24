@@ -8,26 +8,26 @@ public class ArticleDAOTest {
 	public static void main(String[] args) {
 		System.out.println("############ Framework Test ###########");
 		
-		System.out.println("Creating des Article nimst fahrt auf:");
+		System.out.println("Erstelle Artikel :");
         Article article;
 		try {
 			article = new Article(1331l, "Mega geiler Laptop mit Pentium 4 Prozessor", 2999.99);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-        
-        System.out.println("Putte lokale Variable at NULL und gette Article back:");
+		System.out.println("#######################");
+        System.out.println("Setze lokale Variable auf NULL und hole den Artikel zurueck:");
         article = null;
         try {
 			article = Article.read(1331l);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-        
-        System.out.println("Der Artikel bimst vong der Presistensigkeit her follewed " + article.getArticleNumber() + " "
-                + article.getDescription()+", "+article.getPrice());
-                
-        System.out.println("Refreshe Article. Price auf 3099,99 am been");
+    	System.out.println("#######################");
+        System.out.println("Der Artikel " + article.getArticleNumber() + " "
+                + article.getDescription()+", hat folgenden Preis : "+article.getPrice());
+    	System.out.println("#######################");        
+        System.out.println("Aktualisiere Artikel. Preis auf 3099,99 gesetzt");
         try {
 			article.setPrice(3099.99);
 		} catch (SQLException e1) {
@@ -40,7 +40,8 @@ public class ArticleDAOTest {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-        System.out.println("Article bimst jetzt mit Price " + article.getPrice());
+    	System.out.println("#######################");
+        System.out.println("Der Artikel hat jetzt einen Preis von  " + article.getPrice());
 
  
         try {
@@ -49,14 +50,14 @@ public class ArticleDAOTest {
 			e1.printStackTrace();
 		}
         article = null;
-        
-        System.out.println("Trye den Article nach destruction erneud zu readen: ");
+    	System.out.println("#######################");
+        System.out.println("Versuche den Artikel nach löschen erneut zu lesen: ");
         try {
             article = Article.read(1331l);
             System.out.println(article);
         }
         catch (Exception e) {
-        	System.err.println("readen des Articles bimst fehlgeschlagen");
+        	System.err.println("Lesen des Artikels fehlgeschlagen");
 		}
 	}
 }
