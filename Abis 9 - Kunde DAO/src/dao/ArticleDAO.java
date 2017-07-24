@@ -1,7 +1,8 @@
-package DAO;
+package dao;
 
 import java.sql.*;
-import Entity.Article;
+
+import entity.Article;
 import framework.AbstractDAO;
 
 public class ArticleDAO extends AbstractDAO<Article> {
@@ -19,19 +20,19 @@ public class ArticleDAO extends AbstractDAO<Article> {
 	}
 	
 	public String getInsertStatement() {
-		return "INSERT INTO ARTICLE VALUES(?, ?, ?)";
+		return "INSERT INTO Article VALUES(?, ?, ?)";
 	}
 
 	public String getUpdateStatement() {
-		return "UPDATE ARTICLE SET description = ?, price = ? WHERE articleNumber = ?";
+		return "UPDATE Article SET description = ?, price = ? WHERE articleNumber = ?";
 	}
 
 	public String getDeleteStatement() {
-		return "DELETE FROM ARTICLE WHERE articleNumber = ?";
+		return "DELETE FROM Article WHERE articleNumber = ?";
 	}
 
 	public String getFindStatement() {
-		return "SELECT articleNumber, description, price FROM ARTICLE WHERE articleNumber=?";
+		return "SELECT articleNumber, description, price FROM Article WHERE articleNumber=?";
 	}
 
 	public Article doLoad(ResultSet rs) throws SQLException {
@@ -52,9 +53,9 @@ public class ArticleDAO extends AbstractDAO<Article> {
 	}
 
 	public PreparedStatement doInsert(Article entity, PreparedStatement stmnt) throws SQLException {
-        stmnt.setLong(3, entity.getArticleNumber());
-        stmnt.setString(1, entity.getDescription());
-        stmnt.setDouble(2, entity.getPrice());
+        stmnt.setLong(1, entity.getArticleNumber());
+        stmnt.setString(2, entity.getDescription());
+        stmnt.setDouble(3, entity.getPrice());
         
 		return stmnt;
 	}

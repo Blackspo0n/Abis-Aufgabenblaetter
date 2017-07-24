@@ -1,8 +1,9 @@
-package Entity;
+package entity;
 
 
 import java.sql.SQLException;
-import DAO.ArticleDAO;
+
+import dao.ArticleDAO;
 import framework.Entity;
 
 public class Article implements Entity {
@@ -57,13 +58,12 @@ public class Article implements Entity {
 		articleDAO.update(this);
 	}
 
-	/**
-	 * Holen eines vorhandenen Artikels aus der Datenhaltungsschicht uber die
-	 * Artikelnummer
-	 * @throws SQLException 
-	 **/
 	public static Article read(Long articlenumber) throws SQLException {
 		return ArticleDAO.getInstance().read(articlenumber);
+	}
+
+	public static void delete(Article article) throws SQLException {
+		ArticleDAO.getInstance().delete(article);
 	}
 
 	@Override
