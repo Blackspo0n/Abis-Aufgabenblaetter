@@ -19,19 +19,19 @@ public class ArticleDAO extends AbstractDAO<Article> {
 	}
 	
 	public String getInsertStatement() {
-		return "INSERT INTO KUNDEN VALUES(?, ?, ?)";
+		return "INSERT INTO ARTICLE VALUES(?, ?, ?)";
 	}
 
 	public String getUpdateStatement() {
-		return "UPDATE KUNDEN SET NAME = ?, KDGRP = ? WHERE KDNR = ?";
+		return "UPDATE ARTICLE SET description = ?, price = ? WHERE articleNumber = ?";
 	}
 
 	public String getDeleteStatement() {
-		return "DELETE FROM KUNDEN WHERE KDNR = ?";
+		return "DELETE FROM ARTICLE WHERE articleNumber = ?";
 	}
 
 	public String getFindStatement() {
-		return "SELECT KDNR, NAME, KDGRP FROM KUNDEN WHERE KDNR=?";
+		return "SELECT articleNumber, description, price FROM ARTICLE WHERE articleNumber=?";
 	}
 
 	public Article doLoad(ResultSet rs) throws SQLException {
