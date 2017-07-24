@@ -21,13 +21,30 @@ Objekten Ihrer Klasse „Artikel“ zeigt. (10\%)
 \end{itemize}
 
 \subsection{Beschreibung}
+Zu Generalisierungszwecken wurde aus dem KundenDAO ein
+abstractDAO erzeugt. Die Methoden aus KundenDAO wurden allgemein gültig
+formuliert, um es für verschiedene Objekte verwenden zu können. Mit Hilfe von
+Generics wurde die abstrakte Klasse typenlos erstellt, um die Methoden für alle
+möglichen Zwecke zugänglich zu machen. 
+
+Das Interface Entity wurde erstellt, um den Primärschlüssel aus der Datenbank zu
+holen. Die Methode getConnection wurde in die Klasse Database ausgelagert, um
+nicht bei jedem Artikel eine neue Verbindung herstellen zu müssen. Ein Artikel
+besteht aus einer Artikelnummer, einer Beschreibung und einem Preis. Die Methode
+getPrimaryKey(), aus der Klasse Article, holt den Primärschlüssel aus der Klasse
+Entity. Die Klasse ArticleDAO ist zur Bearbeitung der Artikelobjekte angelegt
+worden, wobei die getInstance() Methode das jeweilige Artikel-Objekt zurück
+gibt. Die abstrakte Klasse AbstractDAO ist hierbei die Oberklasse von
+ArticleDAO, wo alle abstrakten Funktionen definiert sind. Die wesentlichen
+Funktionen von dieser Klasse sind unter anderem für die CRUD-Aktionen zuständig.
+Diese Funktionen wurden in der Unterklasse ArticleDAO implementiert.
+
 \subsection{Quelltext des Frameworks}
 \begin{lstlisting}[language=java, style=java, caption={ArticleDAO.java},
 label={lst:lst1}]
 package dao;
 
 import java.sql.*;
-
 import entity.Article;
 import framework.AbstractDAO;
 
@@ -295,39 +312,39 @@ public interface Entity {
 	\caption{UML-Digramm}
 \end{figure}
 
+\clearpage
 \subsection{Quelltext des Anwendungsbeispiel}
 \begin{lstlisting}[language=java, style=java, caption={ArticleDAOTest.java},
 label={lst:lst2}]
 package dao;
 
 import java.sql.SQLException;
-
 import entity.Article;
 
 public class ArticleDAOTest {
 	public static void main(String[] args) {
 		System.out.println("############ Framework Test ###########");
 		
-		System.out.println("Creating des Article nimst fahrt auf:");
+		System.out.println("Erstelle Artikel :");
         Article article;
 		try {
 			article = new Article(1331l, "Mega geiler Laptop mit Pentium 4 Prozessor", 2999.99);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-        
-        System.out.println("Putte lokale Variable at NULL und gette Article back:");
+		System.out.println("#######################");
+        System.out.println("Setze lokale Variable auf NULL und hole den Artikel zurueck:");
         article = null;
         try {
 			article = Article.read(1331l);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-        
-        System.out.println("Der Artikel bimst vong der Presistensigkeit her follewed " + article.getArticleNumber() + " "
-                + article.getDescription()+", "+article.getPrice());
-                
-        System.out.println("Refreshe Article. Price auf 3099,99 am been");
+    	System.out.println("#######################");
+        System.out.println("Der Artikel " + article.getArticleNumber() + " "
+                + article.getDescription()+", hat folgenden Preis : "+article.getPrice());
+    	System.out.println("#######################");        
+        System.out.println("Aktualisiere Artikel. Preis auf 3099,99 gesetzt");
         try {
 			article.setPrice(3099.99);
 		} catch (SQLException e1) {
@@ -340,7 +357,8 @@ public class ArticleDAOTest {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-        System.out.println("Article bimst jetzt mit Price " + article.getPrice());
+    	System.out.println("#######################");
+        System.out.println("Der Artikel hat jetzt einen Preis von  " + article.getPrice());
 
  
         try {
@@ -349,16 +367,23 @@ public class ArticleDAOTest {
 			e1.printStackTrace();
 		}
         article = null;
-        
-        System.out.println("Trye den Article nach destruction erneud zu readen: ");
+    	System.out.println("#######################");
+        System.out.println("Versuche den Artikel nach löschen erneut zu lesen: ");
         try {
             article = Article.read(1331l);
             System.out.println(article);
         }
         catch (Exception e) {
-        	System.err.println("readen des Articles bimst fehlgeschlagen");
+        	System.err.println("Lesen des Artikels fehlgeschlagen");
 		}
 	}
 }
 \end{lstlisting}
+
+Ausgabe auf der Konsole:
+\begin{figure}[htb]
+	\centering
+	\includegraphicsKeepAspectRatio{Auswahl_007.png}{1}
+	\caption{Konsolenausgabe}
+\end{figure}
 \clearpage
