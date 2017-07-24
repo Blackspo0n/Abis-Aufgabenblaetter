@@ -3,18 +3,18 @@ package ArticleDAO;
 import java.util.*;
 import java.sql.*;
 
-public class KundeDAO {
+public class ArticleDAO {
 
     /* Wir benoetigen eine Struktur, um uns alle schon im Speicher
      * vorhandenen Kunden zu merken. 
      */
-    private HashMap<Long, Kunde> cache = new HashMap<Long, Kunde>();
+    private HashMap<Long, Article> cache = new HashMap<Long, Article>();
     private Connection db;
     private ResultSet rs;
     
-    private static KundeDAO instance = new KundeDAO();
+    private static ArticleDAO instance = new ArticleDAO();
     
-    private KundeDAO() {
+    private ArticleDAO() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             db = DriverManager.getConnection("jdbc:mysql://localhost/xdb", "root", "");
@@ -24,7 +24,7 @@ public class KundeDAO {
     }
     
     /* KundeDAO ist als Singleton implementiert */
-	public static KundeDAO getInstance() {
+	public static ArticleDAO getInstance() {
     	return instance;
     }
     
@@ -45,19 +45,19 @@ public class KundeDAO {
     Wir haben an dieser Stelle darauf verzichtet und gehen
     davon aus, dass ein eindeutiger ID bei der Anlage des Kunden
     mitgegeben wird. */
-    public Long create(Kunde kd) {
+    public Long create(Article kd) {
         PreparedStatement insertStatement = null;
         try {
             insertStatement = db.prepareStatement(insertStatementString);
-            insertStatement.setLong(1, kd.getKundennummer());
-            insertStatement.setString(2, kd.getName());
-            insertStatement.setInt(3, kd.getKundengruppe());
+            insertStatement.setLong(1, kd.getArticleNumber());
+            insertStatement.setString(2, kd.getDescription());
+            insertStatement.setInt(3, kd.getPrice());
             insertStatement.execute();
-            cache.put(kd.getKundennummer(), kd);
+            cache.put(kd.getArticleNumber(), kd);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return kd.getKundennummer();
+        return kd.getArticleNumber();
 
     }
     private final static String findStatementString =
@@ -66,8 +66,8 @@ public class KundeDAO {
     /** Methode zum Finden eines Kunden anhand der Kundennummer 
      * im Speicher oder aus der Datenbank
      */
-    public Kunde read(Long kdnr) {
-        Kunde result = (Kunde) cache.get(kdnr);
+    public Article read(Long kdnr) {
+        Article result = (Article) cache.get(kdnr);
         // Zunaechst in der Registry suchen
         if (result != null) {
             return result;
@@ -88,34 +88,34 @@ public class KundeDAO {
         return result;
     }
 
-    public Kunde read(long kdnr) {
+    public Article read(long kdnr) {
         return read(new Long(kdnr));
     }
 
     /** Methode zum Laden eines Kunden in den Speicher aus dem Resultset */
-    private Kunde load(ResultSet rs) throws SQLException {
-        Long kdnr = new Long(rs.getLong(1));
-        Kunde result = (Kunde) cache.get(kdnr);
+    private Article load(ResultSet rs) throws SQLException {
+        Long articlenumber = new Long(rs.getLong(1));
+        Article result = (Article) cache.get(articlenumber);
         if (result != null) {
             return result;
         }
-        String name = rs.getString(2);
-        int kundengruppe = rs.getInt(3);
-        result = new Kunde(kdnr, name, kundengruppe);
-        cache.put(kdnr, result);
+        String description = rs.getString(2);
+        int price = rs.getInt(3);
+        result = new Article(articlenumber, description, price);
+        cache.put(articlenumber, result);
         return result;
     }
     private final static String updateStatementString =
             "UPDATE KUNDEN SET NAME = ?, KDGRP = ? WHERE KDNR = ?";
 
     /** Methode zum Aktualisieren eines Kunden in der DB */
-    public void update(Kunde kd) {
+    public void update(Article kd) {
         PreparedStatement updateStatement = null;
         try {
             updateStatement = db.prepareStatement(updateStatementString);
-            updateStatement.setLong(3, kd.getKundennummer());
-            updateStatement.setString(1, kd.getName());
-            updateStatement.setInt(2, kd.getKundengruppe());
+            updateStatement.setLong(3, kd.getArticleNumber());
+            updateStatement.setString(1, kd.getDescription());
+            updateStatement.setInt(2, kd.getPrice());
             updateStatement.execute();
         } catch (Exception e) {
             e.printStackTrace();
@@ -124,13 +124,13 @@ public class KundeDAO {
     private final static String deleteStatementString =
             "DELETE FROM KUNDEN WHERE KDNR = ?";
 
-    public void delete(Kunde kd) {
+    public void delete(Article kd) {
         PreparedStatement deleteStatement = null;
         try {
             deleteStatement = db.prepareStatement(deleteStatementString);
-            deleteStatement.setLong(1, kd.getKundennummer());
+            deleteStatement.setLong(1, kd.getArticleNumber());
             deleteStatement.execute();
-            cache.remove(kd.getKundennummer());
+            cache.remove(kd.getArticleNumber());
         } catch (Exception e) {
             e.printStackTrace();
         }
