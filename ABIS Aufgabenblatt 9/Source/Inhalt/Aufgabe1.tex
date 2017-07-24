@@ -1,0 +1,103 @@
+\section{Aufgabe 1 (Internationalisierung und Lokalisierung)}
+
+\subsection{Teilaufgabe A)}
+\textbf{Erklären Sie die Begriffe „Internationalisierung“ und „Lokalisierung“. Wo gibt es
+Gemeinsamkeiten? Was sind Unterschiede?}
+
+\subsubsection{L10N}
+Unter Lokalisierung (Localisation L10N) versteht man die Anpassung einer
+Anwendung an die Gegebenheiten einer Region, die sich hinsichtlich
+verschiedener Kriterien von anderen Regionen unterscheiden kann.
+
+\subsubsection{I18N}
+Internationalisierung (Internationalisation I18N) bedeutet primär die Herstellung
+von Lokalisierbarkeit. Es geht darum, Anwendungen so zu erstellen, dass sie
+effizient und ohne nachträgliche Anpassungen im Quellcode für unterschiedliche
+Länder und Regionen einsetzbar gemacht werden können.
+Oft wird Internationalisierung weitergehend definiert; meist wird die gleichzeitige
+Nutzbarkeit unterschiedlicher nationaler Aspekte angestrebt. Für Währungen
+bedeutet dies z.B., dass das System mit mehreren Währungen parallel arbeiten
+und die Währung ineinander umwandeln kann. 
+
+\subsubsection{Unterschiede}
+I18N beschreibt das Vorgehen eine Software so zu erstellen, dass L10N auf dieser
+Basis angewendet werden kann.
+
+\subsection{Teilaufgabe B)}
+\textbf{Was ist ein Ressourcenbündel? Warum ist es zweckmäßig, Zeichenketten (Strings) aus
+dem Quelltext in ein Ressourcenbündel auszulagern?}
+
+Die \gqq{ResourceBundle}-Objekte sind spezielle Assoziativspeicher, die alle
+programmrelevanten Texte und Informationen für ein spezielles Land
+repräsentieren. 
+
+Die Zweckmäßigkeit Strings auszulagern liegt darin, dass die Software zur
+Laufzeit, durch entsprechender Logik, entscheiden kann, welche Zeichenkette
+geladen wird.
+
+Weiter können die Ressourcen unabhängig von dem eigentlichen Quellcode verändert
+werden. Somit kann ein Übersetzungsteam, welches nicht entwickeln kann, ein
+Software-Projekt in eine beliebige Sprache übersetzen, ohne je den eigentlichen
+Quellcode gesehen zu haben.
+
+
+\subsection{Teilaufgabe C)}
+\textbf{Erweitern Sie das Beispiel aus der Vorlesung um eine gemäß der Lokalisierung korrekt
+formatierte Zahl mit Nachkommastellen (z.B. 1234,56 für DE 1.234,56 und für EN
+1,234.56). Geben Sie den Quelltext an (Ausschnitt reicht) und erstellen Sie ein
+Ablaufprotokoll.}
+
+\begin{lstlisting}[language=java, style=java, caption={NumberFormat},
+label={lst:lst1}]
+	[...]
+        ResourceBundle rb = ResourceBundle.getBundle("myBundle",myLocale);
+        System.out.print(rb.getString("format_number:_"));
+        
+        NumberFormat nf = NumberFormat.getInstance(myLocale);
+        System.out.println(nf.format(1234.56));       
+    [...]
+\end{lstlisting}
+\begin{figure}[htb]
+\begin{center}
+\includegraphicsKeepAspectRatio{Auswahl_004.png}{0.8}
+\caption{Ausgabe Deutsch}
+\end{center}
+\end{figure}
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphicsKeepAspectRatio{Auswahl_005.png}{0.8}
+\caption{Ausgabe Englisch}
+\end{center}
+\end{figure}
+
+\clearpage
+\subsection{Teilaufgabe D)}
+\textbf{Erweitern Sie das Lokalisierungsbeispiel aus der Vorlesung (siehe Moodle) um ein
+Ressourcenbündel Ihrer Wahl (z.B. Französisch). Testen Sie das Programm mit Ihrem
+neuen Ressourcenbündel und erstellen Sie ein Ablaufprotokoll.}
+
+Wir haben ein türkisches Sprachparket erstellt.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphicsKeepAspectRatio{Auswahl_006.png}{0.8}
+\caption{Ausgabe Türkisch}
+\end{center}
+\end{figure}
+
+\subsection{Teilaufgabe E)}
+\textbf{Geben Sie ein Lokalisierungsproblem an, das sich wahrscheinlich nicht oder nur schwer
+über Ressourcenbündel und Locales lösen lässt.}
+
+Ein Beispiel, was sich nicht ohne weiteres über Ressourcenbündel realisieren
+lässt, sind Daten, die in einer Datenbank abgelegt werden. Da diese Daten
+oftmals verschiedene Texte beinhalten können Ressourcenbündel diese schlecht bis
+garnicht \gqq{matchen}. 
+
+Um diese Daten trotzdem in verschiedener Sprache verfügbar zu machen müss über
+eine Lösung in der Datenbank nachgedacht werden. So könnte man Beispielsweiße
+für die Artikelstammdaten einfach eine Übersetzungstabelle anlegen, die die
+Übersetzungen pro Artikel beinhalten.
+
+\clearpage
