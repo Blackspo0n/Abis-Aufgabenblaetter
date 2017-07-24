@@ -14,8 +14,6 @@ public class Article implements Entity {
 	private ArticleDAO articleDAO = ArticleDAO.getInstance();
 
 	public Article(Long articleNumber, String description, double price) throws SQLException {
-		super();
-		
 		setArticleNumber(articleNumber);
 		setDescription(description);
 		setPrice(price);
