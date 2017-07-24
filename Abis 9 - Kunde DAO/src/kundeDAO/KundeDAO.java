@@ -3,7 +3,7 @@ package kundeDAO;
 import java.util.*;
 import java.sql.*;
 
-public class KundeDAO extends Ab {
+public class KundeDAO {
 
     /* Wir benoetigen eine Struktur, um uns alle schon im Speicher
      * vorhandenen Kunden zu merken. 
