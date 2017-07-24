@@ -7,7 +7,7 @@ public class KundeDAOTest {
     	
         System.out.println("Erzeuge einen Kunden");
         Kunde derKunde = new Kunde(4711l, "Priemer", 1);
-        System.out.println("Setze lokale Variable auf NULL und hole Kunden zurück");
+        System.out.println("Setze lokale Variable auf NULL und hole Kunden zurï¿½ck");
         derKunde = null;
         derKunde = Kunde.read(4711l);
         System.out.println("Kunde ist " + derKunde.getKundennummer() + " "
@@ -18,11 +18,11 @@ public class KundeDAOTest {
         derKunde = Kunde.read(4711l);
         System.out.println("Kunde hat jetzt Gruppe " + derKunde.getKundengruppe());
 
-        // Jetzt wird der Kunde gelöscht
+        // Jetzt wird der Kunde gelï¿½scht
  
         kundeDAO.delete(derKunde);
         derKunde = null;
-        System.out.println("Versuche den Kunden nach Löschung erneut zu lesen:");
+        System.out.println("Versuche den Kunden nach Lï¿½schung erneut zu lesen:");
         derKunde = Kunde.read(4711l);
         System.out.println(derKunde);
 

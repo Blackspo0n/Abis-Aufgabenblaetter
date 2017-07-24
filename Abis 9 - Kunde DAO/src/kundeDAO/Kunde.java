@@ -5,7 +5,7 @@ public class Kunde {
     private Long kundennummer;
     private String name;
     private int kundengruppe;
-    //für Zugriff KundeDAO
+    //fï¿½r Zugriff KundeDAO
     private KundeDAO kundeDAO = KundeDAO.getInstance();
     
     public Kunde(Long kdnr, String nme, int kndngrpp) {
@@ -43,7 +43,7 @@ public class Kunde {
     }
 	
 	/** Holen eines vorhandenen Kunden aus der Datenhaltungsschicht
-	*   über die Kundennummer
+	*   ï¿½ber die Kundennummer
 	**/
 	public static Kunde read(Long kundennummer) {
 		return KundeDAO.getInstance().read(kundennummer);
