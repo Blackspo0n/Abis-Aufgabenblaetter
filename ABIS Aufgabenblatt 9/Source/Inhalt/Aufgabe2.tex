@@ -21,6 +21,344 @@ Objekten Ihrer Klasse „Artikel“ zeigt. (10\%)
 \end{itemize}
 
 \subsection{Beschreibung}
-sds
+\subsection{Quelltext des Frameworks}
+\begin{lstlisting}[language=java, style=java, caption={ArticleDAO.java},
+label={lst:lst1}]
+package dao;
 
+import java.sql.*;
+
+import entity.Article;
+import framework.AbstractDAO;
+
+public class ArticleDAO extends AbstractDAO<Article> {
+
+	static ArticleDAO instance;
+	
+	private ArticleDAO () {}
+	
+	public static ArticleDAO getInstance() {
+		if(instance == null) {
+			instance = new ArticleDAO();
+		}
+		
+		return instance;
+	}
+	
+	public String getInsertStatement() {
+		return "INSERT INTO Article VALUES(?, ?, ?)";
+	}
+
+	public String getUpdateStatement() {
+		return "UPDATE Article SET description = ?, price = ? WHERE articleNumber = ?";
+	}
+
+	public String getDeleteStatement() {
+		return "DELETE FROM Article WHERE articleNumber = ?";
+	}
+
+	public String getFindStatement() {
+		return "SELECT articleNumber, description, price FROM Article WHERE articleNumber=?";
+	}
+
+	public Article doLoad(ResultSet rs) throws SQLException {
+		Long articleNumber = new Long(rs.getLong(1));
+		String description = rs.getString(2);
+		double price = rs.getDouble(3);
+		
+		Article result = new Article(articleNumber, description, price);
+		return result;
+	}
+
+	public PreparedStatement doUpdate(Article entity, PreparedStatement stmnt) throws SQLException {
+        stmnt.setLong(3, entity.getArticleNumber());
+        stmnt.setString(1, entity.getDescription());
+        stmnt.setDouble(2, entity.getPrice());
+        
+		return stmnt;
+	}
+
+	public PreparedStatement doInsert(Article entity, PreparedStatement stmnt) throws SQLException {
+        stmnt.setLong(1, entity.getArticleNumber());
+        stmnt.setString(2, entity.getDescription());
+        stmnt.setDouble(3, entity.getPrice());
+        
+		return stmnt;
+	}
+}
+\end{lstlisting}
+
+
+
+\begin{lstlisting}[language=java, style=java, caption={Article.java},
+label={lst:lst6}]
+package entity;
+
+import java.sql.SQLException;
+import dao.ArticleDAO;
+import framework.Entity;
+
+public class Article implements Entity {
+	private Long articleNumber;
+	private String description;
+	private double price;
+	
+	private ArticleDAO articleDAO = ArticleDAO.getInstance();
+
+	public Article(Long articleNumber, String description, double price) throws SQLException {
+		setArticleNumber(articleNumber);
+		setDescription(description);
+		setPrice(price);
+		
+		articleDAO.insert(this);
+	}
+
+	public Long getArticleNumber() {
+		return articleNumber;
+	}
+
+	public void setArticleNumber(Long articleNumber) throws SQLException {
+		this.articleNumber = articleNumber;
+		articleDAO.update(this);
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) throws SQLException {
+		this.description = description;
+		articleDAO.update(this);
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) throws SQLException {
+		this.price = price;
+		articleDAO.update(this);
+	}
+
+	public ArticleDAO getArticleDAO() {
+		return articleDAO;
+	}
+
+	public void setArticleDAO(ArticleDAO articleDAO) throws SQLException {
+		this.articleDAO = articleDAO;
+		articleDAO.update(this);
+	}
+
+	public static Article read(Long articlenumber) throws SQLException {
+		return ArticleDAO.getInstance().read(articlenumber);
+	}
+
+	public static void delete(Article article) throws SQLException {
+		ArticleDAO.getInstance().delete(article);
+	}
+
+	@Override
+	public Long getPrimaryKey() {
+		return getArticleNumber();
+	}
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=java, style=java, caption={AbstractDAO.java},
+label={lst:lst3}]
+package framework;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+
+public abstract class AbstractDAO<T extends Entity> {
+
+    private HashMap<Long, T> cache = new HashMap<Long, T>();
+    public Connection connection = null;
+	
+    public AbstractDAO() {
+		connection = Database.getConnection();
+	}
+	
+	public abstract String getInsertStatement();
+	public abstract String getUpdateStatement();
+	public abstract String getDeleteStatement();
+	public abstract String getFindStatement();
+	public abstract T doLoad(ResultSet rs) throws SQLException;
+	public abstract PreparedStatement doUpdate(T entity, PreparedStatement stmnt) throws SQLException;
+	public abstract PreparedStatement doInsert(T entity, PreparedStatement stmnt) throws SQLException;
+	
+	public T read(Long primaryKey) throws SQLException {
+
+        if(cache.containsKey(primaryKey)) return cache.get(primaryKey);
+		        
+		PreparedStatement findStatement = null;
+        findStatement = connection.prepareStatement(getFindStatement());
+        findStatement.setLong(1, primaryKey);
+        ResultSet rs = findStatement.executeQuery();
+        rs.next();
+        
+        T result = load(rs);
+    
+		cleanUp();
+		
+	    return result;
+	}
+	
+	public T load(ResultSet rs) throws SQLException {
+        Long primaryKey = new Long(rs.getLong(1));
+        
+        if(cache.containsKey(primaryKey)) return cache.get(primaryKey);
+        
+        T loadedobj = doLoad(rs);
+        cache.put(primaryKey, loadedobj);
+        
+        return loadedobj;
+	}
+	
+	public void update(T Entity) throws SQLException {
+		PreparedStatement updateStatement = null;
+		
+        updateStatement = connection.prepareStatement(getUpdateStatement());
+        updateStatement = doUpdate(Entity, updateStatement);
+        updateStatement.execute();
+        
+        cache.put(Entity.getPrimaryKey(), Entity);
+	}
+
+	public Long insert(T Entity) throws SQLException {
+		PreparedStatement insertStatement = null;
+		
+        insertStatement = connection.prepareStatement(getInsertStatement());
+        insertStatement = doInsert(Entity, insertStatement);
+        insertStatement.execute();
+        
+        cache.put(Entity.getPrimaryKey(), Entity);
+        
+        return Entity.getPrimaryKey();
+	}
+
+	public void delete(T Entity) throws SQLException {
+        PreparedStatement deleteStatement = null;
+        
+        deleteStatement = connection.prepareStatement(getDeleteStatement());
+        deleteStatement.setLong(1, Entity.getPrimaryKey());
+        deleteStatement.execute();
+        
+        cache.remove(Entity.getPrimaryKey());
+        
+	}
+	
+	public void cleanUp() {
+		cache.clear();
+	}
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=java, style=java, caption={Database.java},
+label={lst:lst4}]
+package framework;
+
+import java.sql.*;
+
+public class Database {
+	static Connection getConnection() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            return DriverManager.getConnection("jdbc:mysql://localhost/xdb", "root", "");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+	}
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=java, style=java, caption={Entity.java},
+label={lst:lst5}]
+package framework;
+
+public interface Entity {
+	public abstract Long getPrimaryKey();
+}
+\end{lstlisting}
+\clearpage
+
+\subsection{Klassendiagram}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphicsKeepAspectRatio{uml.png}{1}
+	\caption{UML-Digramm}
+\end{figure}
+
+\subsection{Quelltext des Anwendungsbeispiel}
+\begin{lstlisting}[language=java, style=java, caption={ArticleDAOTest.java},
+label={lst:lst2}]
+package dao;
+
+import java.sql.SQLException;
+
+import entity.Article;
+
+public class ArticleDAOTest {
+	public static void main(String[] args) {
+		System.out.println("############ Framework Test ###########");
+		
+		System.out.println("Creating des Article nimst fahrt auf:");
+        Article article;
+		try {
+			article = new Article(1331l, "Mega geiler Laptop mit Pentium 4 Prozessor", 2999.99);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+        
+        System.out.println("Putte lokale Variable at NULL und gette Article back:");
+        article = null;
+        try {
+			article = Article.read(1331l);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+        
+        System.out.println("Der Artikel bimst vong der Presistensigkeit her follewed " + article.getArticleNumber() + " "
+                + article.getDescription()+", "+article.getPrice());
+                
+        System.out.println("Refreshe Article. Price auf 3099,99 am been");
+        try {
+			article.setPrice(3099.99);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+        
+        article = null;
+        try {
+			article = Article.read(1331l);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+        System.out.println("Article bimst jetzt mit Price " + article.getPrice());
+
+ 
+        try {
+			Article.delete(article);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+        article = null;
+        
+        System.out.println("Trye den Article nach destruction erneud zu readen: ");
+        try {
+            article = Article.read(1331l);
+            System.out.println(article);
+        }
+        catch (Exception e) {
+        	System.err.println("readen des Articles bimst fehlgeschlagen");
+		}
+	}
+}
+\end{lstlisting}
 \clearpage
