@@ -21,29 +21,32 @@ Objekten Ihrer Klasse „Artikel“ zeigt. (10\%)
 \end{itemize}
 
 \subsection{Beschreibung}
-Zu Generalisierungszwecken wurde aus dem KundenDAO ein \gqq{AbstractDAO}
-erzeugt. Die Methoden aus \gqq{KundenDAO} wurden allgemeingültig formuliert, um
-es für verschiedene Objekte verwenden zu können. Mit Hilfe von Generics wurde
-die abstrakte Klasse typenlos erstellt, um die Methoden für alle möglichen
-Zwecke zugänglich zu machen. Dabei wurde auf die Klasse \gqq{Object} verzichtet.
+Zu Generalisierungszwecken wurde aus dem KundenDAO ein \lstinline[style=java, language=java]{AbstractDAO}
+erzeugt. Die Methoden aus \lstinline[style=java, language=java]{KundenDAO} wurden allgemeingültig formuliert, um
+es für verschiedene Objekte verwenden zu können. Mit Hilfe von Generics (d.h.
+\lstinline[style=java, language=java]{AbstractDAO<T extends Entity>})
+wurde die abstrakte Klasse typenlos erstellt, um die Methoden für alle möglichen Zwecke zugänglich zu machen. Dabei wurde auf
+die Klasse \lstinline[style=java, language=java]{Object} verzichtet.
 
-Das Interface \gqq{Entity} wurde erstellt, um den Primärschlüssel aus der
-Datenbank zu holen. Die Methode \gqq{getConnection} wurde in die Klasse Database
-ausgelagert, um nicht bei jedem Artikel eine neue Verbindung herstellen zu müssen. 
+Das Interface \lstinline[style=java, language=java]{Entity} wurde erstellt, um den Primärschlüssel aus der
+Datenbank zu holen. Die Methode \lstinline[style=java,
+language=java]{getConnection} wurde in die Klasse \lstinline[style=java,
+language=java]{Database} ausgelagert, um nicht bei jedem Artikel eine neue
+Verbindung herstellen zu müssen.
 
-Die Klasse \gqq{ArticleDAO} ist zur Bearbeitung der Artikel-Objekte angelegt
+Die Klasse \lstinline[style=java, language=java]{ArticleDAO} ist zur Bearbeitung der Artikel-Objekte angelegt
 worden, wobei die getInstance() Methode das jeweilige Artikel-Objekt zurück gibt.
-Die Methode \gqq{getPrimaryKey()}, aus dem Interface \gqq{Entity}, implementiert
+Die Methode \lstinline[style=java, language=java]{getPrimaryKey()}, aus dem Interface \lstinline[style=java, language=java]{Entity}, implementiert
 von konkretisierten Objekten, holt den Primärschlüssel des jeweiligen Models.
 
-Die abstrakte Klasse \gqq{AbstractDAO} ist hierbei die Oberklasse von 
-\gqq{ArticleDAO}, wo alle abstrakten Funktionen definiert sind. Die wesentlichen
+Die abstrakte Klasse \lstinline[style=java, language=java]{AbstractDAO} ist hierbei die Oberklasse von 
+\lstinline[style=java, language=java]{ArticleDAO}, wo alle abstrakten Funktionen definiert sind. Die wesentlichen
 Funktionen von dieser Klasse sind unter anderem für die CRUD-Aktionen zuständig.
-Diese Funktionen wurden in der Unterklasse \gqq{ArticleDAO} implementiert.
+Diese Funktionen wurden in der Unterklasse \lstinline[style=java, language=java]{ArticleDAO} implementiert.
 
-Das implementierte Programm nutzt eine White Box Framework Implementierung, da
-durch die eigenen DAO-Implementierungen jeweils die \gqq{AbstractDAO} um
-notwendige Informationen ergänzt.
+Das Framework nutzt eine White Box Framework Implementierung, da
+ die konkreten DAO-Implementierungen die \lstinline[style=java,
+language=java]{AbstractDAO} jeweils um notwendige Informationen ergänzen.
 
 \subsection{Quelltext des Frameworks}
 \begin{lstlisting}[language=java, style=java, caption={ArticleDAO.java},
