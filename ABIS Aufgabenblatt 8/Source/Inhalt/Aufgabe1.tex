@@ -5,19 +5,20 @@
 jeweilige Komponente?}
 
 \subsubsection{Model}
-Die erste Ebene dieses Musters ist die Modelkomponente. Sie representiert
+Die erste Ebene dieses Musters ist die Model-Komponente. Sie repräsentiert
 Daten in der Anwendung und implementiert das Muster "`Observer"' um Änderungen
-der View mit zu teilen.
+der View mitzuteilen.
 
-Die Aufgabe des Models ist es Daten unabhängig von dem Controller und der View
-zu halten. Durch diese Eigenschaft kann es zu einem Modell mehrere Controller
-und mehrere Views geben.
+Die Aufgabe des Models ist es deshalb Daten unabhängig von dem Controller und
+der View zu verwalten und der View zur Verfügung zu stellen. Durch diese
+Eigenschaft kann es zu einem Model mehrere Controller und mehrere Views
+geben.
 
 \subsubsection{View}
 Die nächste Komponente ist die View. Diese representiert die
-Interaktionsschicht, in den meisten Fällen eine GUI, für den Benutzer.
-
-Sie hält jeweils Referenzen zu den Models und dem Controller.
+Interaktionsschicht, in den meisten Fällen eine GUI, für den Benutzer. Sie hält
+jeweils Referenzen zu den Models und führt Aktionen aus, sollten in diesem
+Veränderungen auftreten.
 
 Somit hat die View die Aufgabe Daten aus dem Model anzuzeigen. Dies kann auf
 unterschiedliche Art, \zB als Tabelle, geschehen.
@@ -26,6 +27,9 @@ unterschiedliche Art, \zB als Tabelle, geschehen.
 
 Die Logikschicht bildet der Controller. In dieser Komponente wird auf
 Benutzereingaben reagiert, wertet diese aus und agiert entsprechend.
+
+Eine weitere Aufgabe des Controllers ist, die Übergabe der aufbereiteten Daten
+an das Model, sodass das Model den Zustand abspeichern kann.
 
 \clearpage
 \subsection{Teilaufgabe B)}
@@ -44,17 +48,16 @@ und was dieser kann, aber nicht weiß, was dieser genau macht.
 \subsubsection{Composite}
 Wird verwendet in: \textbf{View}
 
-Mittels dem Composite ist es Ganz-teil Herachrichen zu implementieren.
-
-Im Kontext des Musters kann eine View aus mehreren Komponenten bestehen.
+Mittels dem Composite-Muster ist es Möglich die Komponenten Einheitlich in einer
+baumartigen Struktur abzubilden.
 
 \subsubsection{Observer}
-Wird verwendet in: \textbf{Modell}
+Wird verwendet in: \textbf{Model}
 
-Das Muster Observer informiert registrierte Klassen über veränderungen an den
+Das Muster Observer informiert registrierte Klassen über Veränderungen an den
 eigenen Eigenschaften.
 
-Im Kontext des MVC Konzept informiert das Modell so die View, dass sich daten
+Im Kontext des MVC Konzept informiert das Modell so die View, dass sich Daten
 geändert haben.
 
 \subsection{Teilaufgabe C)}
@@ -62,7 +65,7 @@ geändert haben.
 Veränderung wird dort vorgenommen und warum geschieht dies?}
 
 Die Komponenten in Swing werden in einer Delegaten zusammengefasst.
-Dieses Design wurde aus Performance-Gründen so gewählt, da beim MVC-Muster
+Dieses Design wurde aus Performancegründen so gewählt, da beim MVC-Muster
 erhöhte Aufrufbeziehungen zwischen View und Controller bestehen und so versucht
 wird verschatelte Aufrufe zu minimieren.
 

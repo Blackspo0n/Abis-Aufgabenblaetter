@@ -21,23 +21,29 @@ Objekten Ihrer Klasse „Artikel“ zeigt. (10\%)
 \end{itemize}
 
 \subsection{Beschreibung}
-Zu Generalisierungszwecken wurde aus dem KundenDAO ein
-abstractDAO erzeugt. Die Methoden aus KundenDAO wurden allgemein gültig
-formuliert, um es für verschiedene Objekte verwenden zu können. Mit Hilfe von
-Generics wurde die abstrakte Klasse typenlos erstellt, um die Methoden für alle
-möglichen Zwecke zugänglich zu machen. 
+Zu Generalisierungszwecken wurde aus dem KundenDAO ein \gqq{AbstractDAO}
+erzeugt. Die Methoden aus \gqq{KundenDAO} wurden allgemeingültig formuliert, um
+es für verschiedene Objekte verwenden zu können. Mit Hilfe von Generics wurde
+die abstrakte Klasse typenlos erstellt, um die Methoden für alle möglichen
+Zwecke zugänglich zu machen. Dabei wurde auf die Klasse \gqq{Object} verzichtet.
 
-Das Interface Entity wurde erstellt, um den Primärschlüssel aus der Datenbank zu
-holen. Die Methode getConnection wurde in die Klasse Database ausgelagert, um
-nicht bei jedem Artikel eine neue Verbindung herstellen zu müssen. Ein Artikel
-besteht aus einer Artikelnummer, einer Beschreibung und einem Preis. Die Methode
-getPrimaryKey(), aus der Klasse Article, holt den Primärschlüssel aus der Klasse
-Entity. Die Klasse ArticleDAO ist zur Bearbeitung der Artikelobjekte angelegt
-worden, wobei die getInstance() Methode das jeweilige Artikel-Objekt zurück
-gibt. Die abstrakte Klasse AbstractDAO ist hierbei die Oberklasse von
-ArticleDAO, wo alle abstrakten Funktionen definiert sind. Die wesentlichen
+Das Interface \gqq{Entity} wurde erstellt, um den Primärschlüssel aus der
+Datenbank zu holen. Die Methode \gqq{getConnection} wurde in die Klasse Database
+ausgelagert, um nicht bei jedem Artikel eine neue Verbindung herstellen zu müssen. 
+
+Die Klasse \gqq{ArticleDAO} ist zur Bearbeitung der Artikel-Objekte angelegt
+worden, wobei die getInstance() Methode das jeweilige Artikel-Objekt zurück gibt.
+Die Methode \gqq{getPrimaryKey()}, aus dem Interface \gqq{Entity}, implementiert
+von konkretisierten Objekten, holt den Primärschlüssel des jeweiligen Models.
+
+Die abstrakte Klasse \gqq{AbstractDAO} ist hierbei die Oberklasse von 
+\gqq{ArticleDAO}, wo alle abstrakten Funktionen definiert sind. Die wesentlichen
 Funktionen von dieser Klasse sind unter anderem für die CRUD-Aktionen zuständig.
-Diese Funktionen wurden in der Unterklasse ArticleDAO implementiert.
+Diese Funktionen wurden in der Unterklasse \gqq{ArticleDAO} implementiert.
+
+Das implementierte Programm nutzt eine White Box Framework Implementierung, da
+durch die eigenen DAO-Implementierungen jeweils die \gqq{AbstractDAO} um
+notwendige Informationen ergänzt.
 
 \subsection{Quelltext des Frameworks}
 \begin{lstlisting}[language=java, style=java, caption={ArticleDAO.java},
